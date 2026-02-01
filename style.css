@@ -381,3 +381,43 @@ section, .dashboard-container {
     font-weight: 600;
     color: #1e293b;
 }
+/* --- RESPONSIVE FIX UNTUK HP --- */
+@media screen and (max-width: 600px) {
+    /* Navigasi jadi susun bawah */
+    nav {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 10px;
+    }
+
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap; /* Biar menu gak kepotong kalau kepanjangan */
+        gap: 10px;
+    }
+
+    /* Tombol navigasi lebih pas di HP */
+    .tab-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    /* Hero section lebih manis */
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    /* Kartu Kalkulator & Gacha jadi pas di layar */
+    .calc-card, .tool-card, .gacha-card {
+        width: 100% !important;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 20px;
+    }
+
+    /* Tombol tidak kepanjangan */
+    button {
+        width: 100%; /* Di HP, tombol full lebar biasanya lebih gampang dipencet jempol */
+    }
+}
