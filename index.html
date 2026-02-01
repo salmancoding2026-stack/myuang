@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myuang - Sahabat Cuan Gen Z</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+    <div class="logo">🐱 MYUANG</div>
+    <div class="nav-links">
+        <button class="tab-btn active" onclick="openTab(event, 'home')">Home</button>
+        <button class="tab-btn" onclick="openTab(event, 'tools-page')">Tools</button>
+        <button class="tab-btn" onclick="openKamus()">📕 Kamus Slang</button>
+    </div>
+</nav>
+    </header>
+
+    <section class="hero">
+        <h1>Bikin Cuan Jadi <span class="highlight">Gampang.</span></h1>
+        <p>Karena jajan seblak butuh strategi finansial. Kelola uangmu tanpa ribet bareng Myuang.</p>
+        <button onclick="scrollToTools()">Cek Dana Anti Panik</button>
+    </section>
+
+    <section id="tools" class="calculator-section">
+        <h2>Kalkulator Dana Anti Panik 🚨</h2>
+        <div class="calc-card">
+            <label>Pengeluaran Bulanan (Rp):</label>
+            <input type="number" id="expense" placeholder="Contoh: 3000000">
+            
+            <label>Status Kamu:</label>
+            <select id="status">
+                <option value="3">Single (Aman: 3x Pengeluaran)</option>
+                <option value="6">Punya Pacar/Tanggungan (Aman: 6x)</option>
+                <option value="12">Tulang Punggung Family (Aman: 12x)</option>
+            </select>
+
+            <button onclick="calculateFund()">Hitung Target</button>
+            <div id="result" class="result"></div>
+        </div>
+
+        <div class="tool-card full-width">
+    <h3>📅 Kalender Dividen (Gajian Tambahan)</h3>
+    <p style="font-size: 0.8rem; color: #666; margin-bottom: 15px;">Daftar saham yang biasanya bagi-bagi keuntungan bulan ini!</p>
+    
+    <select id="monthSelect" onchange="showDividen()">
+        <option value="">-- Pilih Bulan --</option>
+        <option value="Januari">Januari</option>
+        <option value="Februari">Februari</option>
+        <option value="Maret">Maret</option>
+        <option value="April">April</option>
+        <option value="Mei">Mei</option>
+        <option value="Juni">Juni</option>
+    </select>
+    
+    <div id="dividenResult" class="result-display">
+        </div>
+</div>
+
+    </section>
+
+    <section id="news-analyzer" class="news-section">
+        <h2>🐱 Myuang IDX News Analyzer</h2>
+        <p>Copy-paste berita saham ke sini, Myuang bakal kasih tau intinya!</p>
+        
+        <div class="news-card">
+            <textarea id="newsInput" placeholder="Contoh: PT Saham Cuan Internasional membukukan laba bersih naik 200% pada kuartal ini..."></textarea>
+            <button onclick="analyzeNews()">Analyze News ✨</button>
+        
+            <div id="analysisResult" class="analysis-result" style="display: none;">
+                <div class="badge" id="newsBadge">STATUS</div>
+                <h3 id="newsTitle">Kesimpulan Myuang:</h3>
+                <p id="newsSummary"></p>
+                <div class="advice-box" id="newsAdvice"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="seblak-section">
+    <h2>🍜 Seblak Index</h2>
+    <div class="calc-card">
+        <p>Mau beli barang mahal? Cek dulu setara berapa porsi seblak!</p>
+        <input type="number" id="itemPrice" placeholder="Harga barang (Rp)">
+        <button onclick="checkSeblakIndex()" style="background: #ff4757;">Cek Indeks Seblak</button>
+        <div id="seblakResult" class="result"></div>
+    </div>
+</section>
+
+    <div id="kamusModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeKamus()">&times;</span>
+            <h2>📕 Kamus Slang Myuang</h2>
+            <p>Biar nggak bingung pas dengerin obrolan trader di tongkrongan.</p>
+            <div class="search-bar">
+                <input type="text" id="kamusSearch" onkeyup="filterKamus()" placeholder="Cari istilah (contoh: Pom-pom)...">
+            </div>
+            <div id="kamusList" class="kamus-grid">
+                </div>
+        </div>
+    </div>
+
+    <section class="mood-section">
+    <h2>🎭 Mood-Check Spend-O-Meter</h2>
+    <p>Gimana perasaanmu sekarang? Myuang kasih saran biar dompet aman.</p>
+    <div class="mood-buttons">
+        <button class="mood-btn" onclick="getMoodAdvice('sedih')">😭 Sedih</button>
+        <button class="mood-btn" onclick="getMoodAdvice('senang')">😍 Senang</button>
+        <button class="mood-btn" onclick="getMoodAdvice('marah')">😡 Marah</button>
+        <button class="mood-btn" onclick="getMoodAdvice('bosan')">😴 Bosan</button>
+    </div>
+    <div id="moodResult" class="mood-result"></div>
+</section>
+
+    <section class="gacha-section">
+    <h2>🎰 Gacha Nasihat Myuang</h2>
+    <div class="gacha-box">
+        <p>Klik tombol di bawah buat dapet ramalan keuanganmu hari ini!</p>
+        <div id="gachaCard" class="gacha-card">?</div>
+        <button onclick="spinGacha()" class="btn-gacha">Buka Kartu Hoki ✨</button>
+    </div>
+    <div id="home" class="tab-content active">
+    <section class="hero-mini">
+        <h1>Halo, <span class="highlight">Future Sultan!</span></h1>
+        <button onclick="shareGacha()" class="btn-share" id="btnShareGacha" style="display:none;">📲 Share Nasib ke Story</button>
+    </section>
+</div>
+</section>
+
+    <div class="tool-card full-width">
+    <h3>⏳ Kalkulator Kapan Kaya</h3>
+    <p style="font-size: 0.8rem; color: #666; margin-bottom: 15px;">Kapan ya tabungan impian bisa tercapai?</p>
+    
+    <div class="flex-input">
+        <div style="flex: 1;">
+            <label style="font-size: 0.7rem; font-weight: bold;">Target (Rp)</label>
+            <input type="number" id="targetRich" placeholder="Contoh: 1000000000">
+        </div>
+        <div style="flex: 1;">
+            <label style="font-size: 0.7rem; font-weight: bold;">Nabung/Bulan (Rp)</label>
+            <input type="number" id="monthlySave" placeholder="Contoh: 2000000">
+        </div>
+    </div>
+    
+    <button onclick="calculateRichTime()" class="btn-primary">Lihat Masa Depan 🚀</button>
+    
+    <div id="richResult" class="result-display"></div>
+    
+    <button onclick="shareRichTime()" class="btn-share" id="btnShareRich" style="display:none;">
+        📲 Share Nasib ke Story
+    </button>
+</div>
+
+    <section class="community-section" style="text-align: center; padding: 40px; background: #25d366; color: white; border-radius: 20px; margin: 20px;">
+    <h2>Join Komunitas Sultan Myuang! 🚀</h2>
+    <p>Belajar investasi dan diskusi bareng ribuan Bestie lainnya di WhatsApp.</p>
+    <a href="https://chat.whatsapp.com/INVITE_LINK_KAMU" target="_blank">
+        <button style="background: white; color: #25d366; border: none;">Gabung Sekarang 📲</button>
+    </a>
+</section>
+
+    <footer>
+        <p>&copy; 2026 Myuang. Tetap Cuan, Tetap Gaya.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
